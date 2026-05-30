@@ -27,7 +27,8 @@ module "network" {
 
 module "linux_vm" {
   source              = "../../modules/linux"
-  vm_name             = "nux1-dev-vm"
+  count = 3
+  vm_name             = "nux${count.index}-dev-vm"
   location            = var.location
   resource_group_name = module.rg.name
   subnet_id           = module.network.subnet_ids["apps"]
@@ -41,7 +42,8 @@ module "linux_vm" {
 module "windows_vm" {
   source = "../../modules/windows"
 
-  vm_name             = "wd1-dev-vm"
+  count = 1
+  vm_name             = "wd${count.index}-dev-vm"
   location            = var.location
   resource_group_name = module.rg.name
   subnet_id           = module.network.subnet_ids["dmz"]
