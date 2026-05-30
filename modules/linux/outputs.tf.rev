@@ -1,0 +1,28 @@
+#output "vm_name" {
+#  value = azurerm_linux_virtual_machine.vm.name
+#}
+
+#output "vm_id" {
+#  value = azurerm_linux_virtual_machine.vm.id
+#}
+
+#output "public_ip" {
+#  value = var.create_public_ip ? azurerm_public_ip.pip[0].ip_address : null
+#}
+
+#output "private_ip" {
+#  value = azurerm_network_interface.nic.private_ip_address
+
+#}
+
+# Output combinado
+output "vm_linux-info" {
+  description = "Información completa de la VM"
+  value = {
+    name       = azurerm_linux_virtual_machine.vm.name
+    subnet_id  = azurerm_network_interface.nic.ip_configuration[0].subnet_id
+    private_ip = azurerm_network_interface.nic.ip_configuration[0].private_ip_address.0
+    public_ip  = azurerm_public_ip.pip[0].ip_address
+  }
+}
+
